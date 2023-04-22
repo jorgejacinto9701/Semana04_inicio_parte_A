@@ -4,8 +4,6 @@ import dao.CategoriaDAO;
 import dao.ClienteDAO;
 import dao.EmpleadoDAO;
 import dao.PaisDAO;
-import dao.ProveedorDAO;
-import dao.TipoDAO;
 
 public abstract class Fabrica {
 
@@ -15,8 +13,6 @@ public abstract class Fabrica {
 	//declara los objetos DAO (Data Access Objet)
 	public abstract CategoriaDAO getCategoria();
 	public abstract ClienteDAO getCliente();
-	public abstract TipoDAO getTipo();
-	public abstract ProveedorDAO getProveedor();
 	public abstract PaisDAO getPais();
 	public abstract EmpleadoDAO getEmpleado();
 	
