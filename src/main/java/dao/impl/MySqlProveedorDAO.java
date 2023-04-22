@@ -4,16 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.logging.Logger;
 
-import dao.EmpleadoDAO;
-import entity.Empleado;
+import dao.ProveedorDAO;
+import entity.Proveedor;
 import util.MySqlDBConexion;
 
-public class MySqlEmpleadoDAO implements EmpleadoDAO{
+public class MySqlProveedorDAO implements ProveedorDAO{
 
 
-	private static Logger log = Logger.getLogger(MySqlEmpleadoDAO.class.getName());
+	private static Logger log = Logger.getLogger(MySqlProveedorDAO.class.getName());
 	
-	public int insertaEmpleado(Empleado  obj) {
+	public int insertaProveedor(Proveedor  obj) {
 		int salida = -1;
 		
 		Connection conn = null;
@@ -21,13 +21,12 @@ public class MySqlEmpleadoDAO implements EmpleadoDAO{
 		try {
 			conn = MySqlDBConexion.getConexion();
 			
-			String sql = "insert into empleado values(null,?,?,?,?,?)";
+			String sql = "insert into proveedor values(null,?,?,?,?)";
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, obj.getNombres());
-			pstm.setDate(2, obj.getFechaNacimiento());
-			pstm.setInt(3, obj.getEstado());
-			pstm.setTimestamp(4, obj.getFechaRegistro());
-			pstm.setInt(5, obj.getPais().getIdPais());
+			pstm.setString(1, obj.getNombre());
+			pstm.setString(2, obj.getDni());
+			pstm.setTimestamp(3, obj.getFechaRegistro());
+			pstm.setInt(4, obj.getTipo().getIdTipo());
 			
 			log.info(">>>> " + pstm);
 

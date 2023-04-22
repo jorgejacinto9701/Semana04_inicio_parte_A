@@ -11,32 +11,32 @@
 <link rel="stylesheet" href="css/dataTables.bootstrap.min.css"/>
 <link rel="stylesheet" href="css/bootstrapValidator.css"/>
 
-<title>Registra Empleado</title>
+<title>Registra Proveedor</title>
 </head>
 <body>
 
 
 <div class="container">
-<h1>Registra Empleado</h1>
+<h1>Registra Proveedor</h1>
 
-	<form id="id_form"> 
+	<form action="registraAlumno" id="id_form"> 
 			<input type="hidden" name="metodo" value="registra">	
 			<div class="form-group">
 				<label class="control-label" for="id_nombre">Nombres</label>
 				<input class="form-control" type="text" id="id_nombre" name="nombre" placeholder="Ingrese el nombre">
 			</div>
 			<div class="form-group">
-				<label class="control-label" for="id_fecha">Fecha Nacimiento</label>
-				<input class="form-control" type="date" id="id_fecha" name="fecha" placeholder="Ingrese la fecha">
+				<label class="control-label" for="id_dni">DNI</label>
+				<input class="form-control" type="text" id="id_dni" name="dni" placeholder="Ingrese el dni" maxlength="8">
 			</div>
 			<div class="form-group">
-				<label class="control-label" for="id_pais"> País </label> <select
-					class="form-control" id="id_pais" name="pais">
+				<label class="control-label" for="id_tipo"> Tipo </label> <select
+					class="form-control" id="id_tipo" name="tipo">
 					<option value=" ">[Seleccione]</option>
 				</select>
 			</div>
 			<div class="form-group">
-				<button type="button" class="btn btn-primary" id="id_btn_registra">Crea Empleado</button>
+				<button type="button" class="btn btn-primary" id="id_btn_registra">Crea Tipo</button>
 			</div>
 	</form>
 </div>
@@ -72,19 +72,23 @@ $(document).ready(function() {
                     },
         		}
         	},
-        	fecha : {
-        		selector: "#id_fecha",
+        	dni : {
+        		selector: "#id_dni",
         		validators : {
         			notEmpty: {
-                        message: 'La fecha es requerido'
+                        message: 'El dni es requerido'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]{8}$/,
+                        message: 'El dni tiene 8 dígitos'
                     },
         		}
         	},
-        	pais : {
-        		selector: "#id_pais",
+        	tipo : {
+        		selector: "#id_tipo",
         		validators : {
         			notEmpty: {
-                        message: 'El país es requerido'
+                        message: 'El tipo es requerido'
                     },
         		}
         	},        	
@@ -104,7 +108,7 @@ $(document).ready(function() {
 	    if (validator.isValid()) {
 	        $.ajax({
 	          type: "POST",
-	          url: "registraEmpleado", 
+	          url: "registraProveedor", 
 	          data: $('#id_form').serialize(),
 	          success: function(data){
 	        	  mostrarMensaje(data.mensaje);
@@ -119,9 +123,9 @@ $(document).ready(function() {
 	    }
 	});
 
-	$.getJSON("cargaPais", {}, function (data){
+	$.getJSON("cargaTipo", {}, function (data){
 		$.each(data, function(index, item){
-			$("#id_pais").append("<option value=" +  item.idPais +" >" +  item.nombre + "</option>");
+			$("#id_tipo").append("<option value=" +  item.idTipo +" >" +  item.descripcion + "</option>");
 		});	
 	});		
 

@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import dao.PaisDAO;
-import entity.Pais;
+import dao.TipoDAO;
+import entity.Tipo;
 import fabricas.Fabrica;
 
-@WebServlet("/cargaPais")
-public class CargaComboPaisServlet extends HttpServlet{
+@WebServlet("/cargaTipo")
+public class CargaComboTipoServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,9 +26,9 @@ public class CargaComboPaisServlet extends HttpServlet{
 	
 		//1 Traer todas las categorias de la base de datos
 		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
-		PaisDAO dao = fabrica.getPais();
+		TipoDAO dao = fabrica.getTipo();
 	
-		List<Pais> lista = dao.listaPais();
+		List<Tipo> lista = dao.listaTipos();
 		
 		//2 Convertir las categorias en formato JSON
 		Gson gson = new Gson();

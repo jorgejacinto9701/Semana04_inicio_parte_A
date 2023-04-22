@@ -2,7 +2,6 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.servlet.ServletException;
@@ -13,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import dao.EmpleadoDAO;
-import entity.Empleado;
-import entity.Pais;
+import dao.ProveedorDAO;
+import entity.Proveedor;
 import entity.Respuesta;
+import entity.Tipo;
 import fabricas.Fabrica;
 
-@WebServlet("/registraEmpleado")
-public class EmpleadoServlet extends HttpServlet {
+@WebServlet("/registraProveedor")
+public class ProveedorServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,23 +27,22 @@ public class EmpleadoServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
 			String vnombre = req.getParameter("nombre");
-			String vfecha = req.getParameter("fecha");
-			String vpais = req.getParameter("pais");
+			String vdni = req.getParameter("dni");
+			String vtipo = req.getParameter("tipo");
 
-			Pais objPais = new Pais();
-			objPais.setIdPais(Integer.parseInt(vpais));
+			Tipo objTipo = new Tipo();
+			objTipo.setIdTipo(Integer.parseInt(vtipo));
 			
-			Empleado objEmpleado = new Empleado();
-			objEmpleado.setNombres(vnombre);
-			objEmpleado.setFechaNacimiento(Date.valueOf(vfecha));
-			objEmpleado.setFechaRegistro(new Timestamp(System.currentTimeMillis()));
-			objEmpleado.setEstado(1);
-			objEmpleado.setPais(objPais);
+			Proveedor objProveedor = new Proveedor();
+			objProveedor.setNombre(vnombre);
+			objProveedor.setDni(vdni);
+			objProveedor.setFechaRegistro(new Timestamp(System.currentTimeMillis()));
+			objProveedor.setTipo(objTipo);
 			
 			Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
-			EmpleadoDAO dao = fabrica.getEmpleado();
+			ProveedorDAO dao = fabrica.getProveedor();
 		
-			int insertados = dao.insertaEmpleado(objEmpleado);
+			int insertados = dao.insertaProveedor(objProveedor);
 			
 			
 			Respuesta objRespuesta = new Respuesta();
